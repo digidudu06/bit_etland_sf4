@@ -23,7 +23,7 @@ compo = {
 			+'    <button type="button" class="cancelbtn">Cancel</button>'
 			+'    <span class="psw">Forgot <a href="#">password?</a></span>'
 			+'  </div>'
-			+'</form>'
+			+'</form>';
 		},
 		cust_join_form : ()=>{
 			return '<form action="/action_page.php" style="border:1px solid #ccc">'
@@ -52,7 +52,7 @@ compo = {
 			+'      <button type="submit" class="signupbtn">Sign Up</button>'
 			+'    </div>'
 			+'  </div>'
-			+'</form>'
+			+'</form>';
 		},
 		emp_access_form : ()=>{
 			return '<h2>Login Form</h2>'
@@ -77,7 +77,7 @@ compo = {
 			+'    <button type="button" class="cancelbtn">Cancel</button>'
 			+'    <span class="psw">Forgot <a href="#">password?</a></span>'
 			+'  </div>'
-			+'</form>'
+			+'</form>';
 		},
 		emp_regist_form : ()=>{
 			return '<form action="/action_page.php" style="border:1px solid #ccc">'
@@ -106,13 +106,6 @@ compo = {
 			+'      <button type="submit" class="signupbtn">Sign Up</button>'
 			+'    </div>'
 			+'  </div>'
-			+'</form>'
-		},
-		nav : ()=>{
-			$('#nav').children().eq(0).html('<a id="login" href="#">로그인</a>');
-			$('#nav').children().eq(1).html('<a id="join" href="#">회원가입</a>');
-			$('#nav').children().eq(2).html('<a id="access" href="#">사원접속</a>');
-			$('#nav').children().eq(3).html('<a id="regist" href="#">사원등록</a>');
-	
+			+'</form>';
 		}
 }
