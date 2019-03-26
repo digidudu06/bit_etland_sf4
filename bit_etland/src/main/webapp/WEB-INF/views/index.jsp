@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -131,6 +132,7 @@
 <script src="<%=application.getContextPath()%>/resources/js/router.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/customer/cust.js"></script>
 <script src="<%=application.getContextPath()%>/resources/js/employee/emp.js"></script>
+<script src="<%=application.getContextPath()%>/resources/js/common/auth.js"></script>
 <script>
 app.init('<%=application.getContextPath()%>');
 </script>
