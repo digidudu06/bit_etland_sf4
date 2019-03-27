@@ -10,12 +10,14 @@ auth = (()=>{
 		setContentView();
 	};
 	let setContentView =()=>{
-		$.getScript($.js()+'/component/compo.js')
-		.done(()=>{
-			$(r_ctn).empty();
-			$(compo.cust_login_form()).appendTo(r_ctn);
+		$.getScript($.js()+'/component/compo.js', ()=>{
 			
-			login();
+			$(r_ctn).html(compo.cust_login_form());
+			
+			$('form button[type=submit]').click(e=>{
+				e.preventDefault();
+				login();
+			});
 			
 			$('#left_content ul.nav').empty();
 			let arr = [
@@ -37,7 +39,10 @@ auth = (()=>{
 						$(r_ctn).empty();
 						$(compo.cust_login_form())
 						.appendTo(r_ctn);
-						login();
+						$('form button[type=submit]').click(e=>{
+							e.prevertDefault();
+							login();
+						});
 						break;
 					case 'join': 
 						$(r_ctn).empty();
@@ -67,7 +72,7 @@ auth = (()=>{
 	};
 	
 	let login = ()=>{
-		$('form button[type=submit]').click(()=>{
+		
 			let data = {
 					customerId: $('form input[name=uname]').val(),
 					password: $('form input[name=psw]').val()
@@ -91,7 +96,7 @@ auth = (()=>{
 					alert('에러');
 				}
 			});
-		});
+		
 	};
 	let join = ()=>{};
 	let mypage = ()=>{};
