@@ -3,7 +3,7 @@ auth = (()=>{
 	let r_ctn;
 	
 	let init = ()=>{
-		r_ctn = $('#right_content');
+		r_ctn = '#right_content';
 		onCreate();
 	};
 	let onCreate = ()=>{
@@ -12,7 +12,7 @@ auth = (()=>{
 	let setContentView =()=>{
 		$.getScript($.js()+'/component/compo.js')
 		.done(()=>{
-			r_ctn.empty();
+			$(r_ctn).empty();
 			$(compo.cust_login_form()).appendTo(r_ctn);
 			
 			login();
@@ -34,25 +34,25 @@ auth = (()=>{
 					
 					switch(that){
 					case 'login': 
-						rightCtnt.empty();
+						$(r_ctn).empty();
 						$(compo.cust_login_form())
-						.appendTo('#right_content');
-						
+						.appendTo(r_ctn);
+						login();
 						break;
 					case 'join': 
-						rightCtnt.empty();
+						$(r_ctn).empty();
 						$(compo.cust_join_form())
-						.appendTo('#right_content');
+						.appendTo(r_ctn);
 						break;
 					case 'access': 
-						rightCtnt.empty();
+						$(r_ctn).empty();
 						$(compo.emp_access_form())
-						.appendTo('#right_content');
+						.appendTo(r_ctn);
 						break;
 					case 'regist': 
-						rightCtnt.empty();
+						$(r_ctn).empty();
 						$(compo.emp_regist_form())
-						.appendTo('#right_content');
+						.appendTo(r_ctn);
 						break;
 					};
 					
@@ -79,7 +79,13 @@ auth = (()=>{
 				dataType: 'json',
 				contentType: 'application/json',
 				success: d=>{
-					alert(d.customerId);
+					if(d.customerId != ''){
+						alert('로그인 성공'+d.customerId);
+						$(r_ctn).empty();
+						$(r_ctn).html(compo.cust_mypage());
+					}else{
+						alert('로그인 실패');
+					}
 				},
 				error: e=>{
 					alert('에러');

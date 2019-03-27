@@ -15,14 +15,10 @@
         PHOTO photo, 
         PHONE phone
 	  FROM CUSTOMERS 
-	  <where>
-	  	<if test="attr=='custoemrId'">
-	  		WHERE CUSTOMER_ID LIKE #{customerId}
-	  	</if>
-	  	<if test="attr=='password'">
+	  WHERE CUSTOMER_ID LIKE #{customerId}
+	  	<if test="password != null">
 		  	AND PASSWORD LIKE #{password}
 	  	</if>
-	  </where>
 	</select>
 
 	<insert 
