@@ -14,7 +14,7 @@ app = (() => {
 				$.getScript($.js()+'/common/auth.js'),
 				$.getScript($.js()+'/employee/emp.js')
 		).done(()=>{
-			auth.permission.login();
+			auth.init();
 		}//콜백		
 		);//when done
 		

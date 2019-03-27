@@ -1,36 +1,21 @@
 var auth = auth || {};
-auth.permission = (()=>{
-	let rightCtnt = $('#right_content');
+auth = (()=>{
+	let r_ctn;
 	
 	let init = ()=>{
+		r_ctn = $('#right_content');
 		onCreate();
 	};
 	let onCreate = ()=>{
 		setContentView();
 	};
 	let setContentView =()=>{
-		
-	};
-	let login = ()=>{
 		$.getScript($.js()+'/component/compo.js')
 		.done(()=>{
-			rightCtnt.html(compo.cust_login_form());
+			r_ctn.empty();
+			$(compo.cust_login_form()).appendTo(r_ctn);
 			
-			$('form button[type=submit]').click(()=>{
-				let data = {
-						customerId: $('form input[name=uname]').val(),
-						password: $('form input[name=psw]').val()
-						};
-				$.ajax({
-					url: $.ctx()+'/cust/login/',
-					type: 'post',
-					data: JSON.stringify(data),
-					dataType: 'json',
-					contentType: 'application/json',
-					success: d=>{},
-					error: e=>{}
-				});
-			});
+			login();
 			
 			$('#left_content ul.nav').empty();
 			let arr = [
@@ -78,12 +63,31 @@ auth.permission = (()=>{
 			alert('componenet/compo.js를 찾지 못 했습니다.');
 		});
 		
+	
+	};
+	
+	let login = ()=>{
+		$('form button[type=submit]').click(()=>{
+			let data = {
+					customerId: $('form input[name=uname]').val(),
+					password: $('form input[name=psw]').val()
+					};
+			$.ajax({
+				url: $.ctx()+'/cust/login/',
+				type: 'post',
+				data: JSON.stringify(data),
+				dataType: 'json',
+				contentType: 'application/json',
+				success: d=>{
+					alert(d.customerId);
+				},
+				error: e=>{
+					alert('에러');
+				}
+			});
+		});
 	};
 	let join = ()=>{};
 	let mypage = ()=>{};
-	return {
-		login : login,
-		join : join,
-		mypage : mypage
-	};
+	return {init : init};
 })();
