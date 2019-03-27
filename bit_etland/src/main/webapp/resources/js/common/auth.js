@@ -40,7 +40,7 @@ auth = (()=>{
 						$(compo.cust_login_form())
 						.appendTo(r_ctn);
 						$('form button[type=submit]').click(e=>{
-							e.prevertDefault();
+							e.preventDefault();
 							login();
 						});
 						break;
@@ -86,7 +86,6 @@ auth = (()=>{
 				success: d=>{
 					if(d.customerId != ''){
 						alert('로그인 성공'+d.customerId);
-						$(r_ctn).empty();
 						$(r_ctn).html(compo.cust_mypage());
 					}else{
 						alert('로그인 실패');
