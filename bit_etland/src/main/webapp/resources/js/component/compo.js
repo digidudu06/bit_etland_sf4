@@ -26,20 +26,37 @@ compo = {
 			+'</form>';
 		},
 		cust_join_form : ()=>{
-			return '<form action="/action_page.php" style="border:1px solid #ccc">'
+			return '<form>'
 			+'  <div class="container">'
 			+'    <h1>Sign Up</h1>'
 			+'    <p>Please fill in this form to create an account.</p>'
 			+'    <hr>'
+			+'   	 <label for="customerId"><b>아이디</b></label>'
+			+'   	 <input type="text" placeholder="Enter customerId" name="customerId" required><br/>'
 			
-			+'    <label for="email"><b>Email</b></label>'
-			+'    <input type="text" placeholder="Enter Email" name="email" required>'
+			+'   	 <label for="customerName"><b>이름</b></label>'
+			+'   	 <input type="text" placeholder="Enter customerName" name="customerName" required><br/>'
+			
+			+'   	 <label for="password"><b>비밀번호</b></label>'
+			+'   	 <input type="password" placeholder="Enter Password" name="password" required><br/>'
+			
+			+'   	 <label for="ssn"><b>주민번호</b></label>'
+			+'   	 <input type="text" placeholder="Enter ssn" name="ssn" required><br/>'
+			
+			+'   	 <label for="phone"><b>전화번호</b></label>'
+			+'   	 <input type="text" placeholder="Enter phone" name="phone" required><br/>'
+			
+			+'   	 <label for="city"><b>주소</b></label>'
+			+'   	 <input type="text" placeholder="Enter city" name="city" required><br/>'
+			
+			+'   	 <label for="address"><b>상세주소</b></label>'
+			+'   	 <input type="text" placeholder="Enter address" name="address" required><br/>'
+			
+			+'   	 <label for="postalCode"><b>우편번호</b></label>'
+			+'   	 <input type="text" placeholder="Enter postalCode" name="postalCode" required><br/>'
 		
-			+'    <label for="psw"><b>Password</b></label>'
-			+'    <input type="password" placeholder="Enter Password" name="psw" required>'
-	
-			+'    <label for="psw-repeat"><b>Repeat Password</b></label>'
-			+'    <input type="password" placeholder="Repeat Password" name="psw-repeat" required>'
+			+'   	 <label for="photo"><b>사진</b></label>'
+			+'   	 <input type="text" placeholder="Enter photo" name="photo" required>'
 			
 			+'    <label>'
 			+'      <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me'
@@ -109,7 +126,7 @@ compo = {
 			+'</form>';
 			
 		},
-		cust_mypage : ()=>{
+		cust_mypage : x=>{
 				return '<body class="w3-light-grey">'
 				+'<!-- Page Container -->'
 				+'<div class="w3-content w3-margin-top" style="max-width:1400px;">'
@@ -121,16 +138,16 @@ compo = {
 				+'        <div class="w3-display-container">'
 				+'          <img src="/w3images/avatar_hat.jpg" style="width:100%" alt="Avatar">'
 				+'          <div class="w3-display-bottomleft w3-container w3-text-black">'
-				+'            <h2>Jane Doe</h2>'
+				+'            <h2>'+x.name+'</h2>'
 				+'          </div>'
 				+'        </div>'
 				+'        <div class="w3-container">'
-				+'          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Designer</p>'
-				+'          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>London, UK</p>'
-				+'          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>ex@mail.com</p>'
-				+'          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>1224435534</p>'
+				+'          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>'+x.id+'</p>'
+				+'          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>'+x.phone+'</p>'
+/*				+'          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>'+x.city+'</p>'
+				+'          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>'+x.address+'</p>'*/
 				+'          <hr>'
-				+'          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b></p>'
+				+'          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>주소</b></p>'
 				+'          <p>Adobe Photoshop</p>'
 				+'          <div class="w3-light-grey w3-round-xlarge w3-small">'
 				+'            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">90%</div>'
