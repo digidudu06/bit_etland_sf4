@@ -71,6 +71,8 @@ compo = {
 			+'  </div>'
 			+'</form>';
 		},
+		
+		
 		emp_access_form : ()=>{
 			return '<h2>Login Form</h2>'
 			+'<form action="/action_page.php">'
@@ -78,18 +80,12 @@ compo = {
 			+'    <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">'
 			+'	</div>'
 			+'  <div class="container">'
-			+'    <label for="uname"><b>Username</b></label>'
-			+'    <input type="text" placeholder="Enter Username" name="uname" required>'
-			
-			+'    <label for="psw"><b>Password</b></label>'
-			+'    <input type="password" placeholder="Enter Password" name="psw" required>'
- 
-			+'    <button type="submit">Login</button>'
-			+'    <label>'
-			+'     <input type="checkbox" checked="checked" name="remember"> Remember me'
-			+'   </label>'
+			+'    <label for="emploueeId"><b>emploueeId</b></label>'
+			+'    <input type="text" placeholder="Enter emploueeId" name="emploueeId" required>'
+			+'    <label for="name"><b>name</b></label>'
+			+'    <input type="text" placeholder="Enter name" name="name" required>'
+			+'    <button type="submit">ACCESS</button>'
 			+'  </div>'
-
 			+'  <div class="container" style="background-color:#f1f1f1">'
 			+'    <button type="button" class="cancelbtn">Cancel</button>'
 			+'    <span class="psw">Forgot <a href="#">password?</a></span>'
@@ -103,14 +99,23 @@ compo = {
 			+'    <p>Please fill in this form to create an account.</p>'
 			+'    <hr>'
 			
-			+'    <label for="email"><b>Email</b></label>'
-			+'    <input type="text" placeholder="Enter Email" name="email" required>'
+			+'    <label for="emploueeId"><b>EMPLOUEE ID</b></label>'
+			+'    <input type="text" placeholder="Enter emploueeId" name="emploueeId" required><br/>'
 		
-			+'    <label for="psw"><b>Password</b></label>'
-			+'    <input type="password" placeholder="Enter Password" name="psw" required>'
+			+'    <label for="name"><b>NAME</b></label>'
+			+'    <input type="text" placeholder="Enter name" name="name" required><br/>'
 	
-			+'    <label for="psw-repeat"><b>Repeat Password</b></label>'
-			+'    <input type="password" placeholder="Repeat Password" name="psw-repeat" required>'
+			+'    <label for="manager"><b>MANAGER</b></label>'
+			+'    <input type="text" placeholder="Enter manager" name="manager" required><br/>'
+			
+			+'    <label for="birthDate"><b>BIRTHDATE</b></label>'
+			+'    <input type="text" placeholder="Enter birthDate" name="birthDate" required><br/>'
+			
+			+'    <label for="photo"><b>PHOTO</b></label>'
+			+'    <input type="text" placeholder="Enter photo" name="photo" required><br/>'
+			
+			+'    <label for="notes"><b>NOTES</b></label>'
+			+'    <input type="text" placeholder="Enter notes" name="notes" required><br/>'
 			
 			+'    <label>'
 			+'      <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me'
@@ -119,8 +124,8 @@ compo = {
 			+'    <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>'
 	
 			+'    <div class="clearfix">'
-			+'      <button type="button" class="cancelbtn">Cancel</button>'
-			+'      <button type="submit" class="signupbtn">Sign Up</button>'
+			+'      <button type="button" class="cancelbtn">CANCEL</button>'
+			+'      <button type="submit" class="signupbtn">REGISTER</button>'
 			+'    </div>'
 			+'  </div>'
 			+'</form>';
@@ -148,19 +153,19 @@ compo = {
 				+'          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>'+x.address+'</p>'*/
 				+'          <hr>'
 				+'          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>주소</b></p>'
-				+'          <p>Adobe Photoshop</p>'
+				+'          <p><주소></p>'
 				+'          <div class="w3-light-grey w3-round-xlarge w3-small">'
-				+'            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">90%</div>'
+				+'            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:90%">'+x.city+'</div>'
 				+'          </div>'
-				+'          <p>Photography</p>'
+				+'          <p><상세주소></p>'
 				+'          <div class="w3-light-grey w3-round-xlarge w3-small">'
 				+'            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:80%">'
-				+'              <div class="w3-center w3-text-white">80%</div>'
+				+'              <div class="w3-center w3-text-white">'+x.address+'</div>'
 				+'            </div>'
 				+'          </div>'
-				+'          <p>Illustrator</p>'
+				+'          <p><우편번호></p>'
 				+'          <div class="w3-light-grey w3-round-xlarge w3-small">'
-				+'            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:75%">75%</div>'
+				+'            <div class="w3-container w3-center w3-round-xlarge w3-teal" style="width:75%">'+x.postalCode+'</div>'
 				+'          </div>'
 				+'          <p>Media</p>'
 				+'          <div class="w3-light-grey w3-round-xlarge w3-small">'

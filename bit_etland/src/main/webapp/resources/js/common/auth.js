@@ -83,7 +83,7 @@ auth = (()=>{
 					password: $('form input[name=psw]').val()
 					};
 			$.ajax({
-				url: $.ctx()+'/cust/login/',
+				url: $.ctx()+'/users/cust/'+data.customerId,
 				type: 'post',
 				data: JSON.stringify(data),
 				dataType: 'json',
@@ -91,10 +91,19 @@ auth = (()=>{
 				success: d=>{
 					if(d.customerId != ''){
 						alert('로그인 성공'+d.customerId);
-						$(r_ctn).html(compo.cust_mypage(
+						/*$(r_ctn).html(compo.cust_mypage(
 								{name:d.customerName,
 									id:d.customerId,
-									phone:d.phone}));
+									city:d.city,
+									address:d.address,
+									postalCode:d.postalCode
+								}));*/
+						$.getScript($.js()+'/customer/cust.js')
+						.done((d)=>{
+							cust.init(d);
+						})
+						.fail(()=>{});
+						
 					}else{
 						alert('로그인 실패');
 					}
@@ -106,7 +115,7 @@ auth = (()=>{
 		
 	};
 	let join = ()=>{
-		let data ={
+		let data = {
 				customerId: $('form input[name=customerId]').val(),
 	            customerName: $('form input[name=customerName]').val(), 
 	            password: $('form input[name=password]').val(), 
@@ -116,17 +125,106 @@ auth = (()=>{
 	            address: $('form input[name=address]').val(),
 	            postalCode: $('form input[name=postalCode]').val(),
 	            photo: $('form input[name=photo]').val()
-		};
+				};
 		$.ajax({
-			url: $.ctx()+'/cust/join/',
+			url: $.ctx()+'/users/cust/',
 			type: 'post',
 			data: JSON.stringify(data),
 			dataType: 'json',
 			contentType: 'application/json',
-			success: d=>{alert('가입 성공 아이디'+d.msg);},
-			error: e=>{alert('가입 실패');}
+			success: d=>{
+				if(d.msg === 'success'){
+					alert('회원가입 성공'+d.msg);
+					$(r_ctn).html(compo.cust_login_form());
+					$('form button[type=submit]').click(e=>{
+						e.preventDefault();
+						login();
+					});
+				}else{
+					alert('회원가입 실패');
+					$(r_ctn).html(compo.cust_join_form());
+					$('form button[type=submit]').click(e=>{
+						alert('누름');
+						e.preventDefault();
+						join();
+					});
+				}
+			},
+			error: e=>{
+				alert('에러');
+			}
 		});
 	};
-	let mypage = d=>{};
+	let register = ()=>{
+		let data = {
+				emploueeId: $('form input[name=emploueeId]').val(),
+				name: $('form input[name=name]').val(), 
+	        	manager: $('form input[name=manager]').val(),
+	        	birthDate: $('form input[name=birthDate]').val(),
+	        	photo: $('form input[name=photo]').val(),
+	        	notes: $('form input[name=notes]').val()
+				};
+		$.ajax({
+			url: $.ctx()+'/users/emp/',
+			type: 'post',
+			data: JSON.stringify(data),
+			dataType: 'json',
+			contentType: 'application/json',
+			success: d=>{
+				if(d.msg === 'success'){
+					alert('회원가입 성공'+d.msg);
+					$(r_ctn).html(compo.cust_login_form());
+					$('form button[type=submit]').click(e=>{
+						e.preventDefault();
+						login();
+					});
+				}else{
+					alert('회원가입 실패');
+					$(r_ctn).html(compo.cust_join_form());
+					$('form button[type=submit]').click(e=>{
+						alert('누름');
+						e.preventDefault();
+						join();
+					});
+				}
+			},
+			error: e=>{
+				alert('에러');
+			}
+		});
+	};
+	let access = ()=>{
+		let data = {
+				emploueeId: $('form input[name=emploueeIdS]').val(),
+				name: $('form input[name=name]').val()
+				};
+		$.ajax({
+			url: $.ctx()+'/users/cust/'+data.customerId,
+			type: 'post',
+			data: JSON.stringify(data),
+			dataType: 'json',
+			contentType: 'application/json',
+			success: d=>{
+				if(d.customerId != ''){
+					alert('로그인 성공'+d.customerId);
+					$(r_ctn).html(compo.cust_mypage(
+							{name:d.customerName,
+								id:d.customerId,
+								city:d.city,
+								address:d.address,
+								postalCode:d.postalCode
+							}));
+				}else{
+					alert('로그인 실패');
+				}
+			},
+			error: e=>{
+				alert('에러');
+			}
+		});
+	};
+	
+	
+	let mypage = ()=>{};
 	return {init : init};
 })();
