@@ -36,10 +36,6 @@ cust = (()=>{
 					case 'mypage': 
 						$(r_ctn).empty();
 						mypage(d);
-						/*$('form button[type=submit]').click(e=>{
-							e.preventDefault();
-							
-						});*/
 						break;
 					case 'update': 
 						$(r_ctn).empty();
@@ -62,8 +58,7 @@ cust = (()=>{
 						break;
 					case 'shop': 
 						$(r_ctn).empty();
-						$(compo.emp_access_form())
-						.appendTo(r_ctn);
+						prod.init();
 						break;
 					case 'purchase_h': 
 						$(r_ctn).empty();

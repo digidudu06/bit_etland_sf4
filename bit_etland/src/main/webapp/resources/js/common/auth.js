@@ -86,7 +86,7 @@ auth = (()=>{
 					password: $('form input[name=psw]').val()
 					};
 			$.ajax({
-				url: $.ctx()+'/users/cust/'+data.customerId,
+				url: $.ctx()+'/customers/'+data.customerId,
 				type: 'post',
 				data: JSON.stringify(data),
 				dataType: 'json',
@@ -126,7 +126,7 @@ auth = (()=>{
 	            photo: $('form input[name=photo]').val()
 				};
 		$.ajax({
-			url: $.ctx()+'/users/cust/',
+			url: $.ctx()+'/customers',
 			type: 'post',
 			data: JSON.stringify(data),
 			dataType: 'json',
@@ -164,7 +164,7 @@ auth = (()=>{
 	        	notes: $('form input[name=notes]').val()
 				};
 		$.ajax({
-			url: $.ctx()+'/users/emp/',
+			url: $.ctx()+'/employees',
 			type: 'post',
 			data: JSON.stringify(data),
 			dataType: 'json',
@@ -198,7 +198,7 @@ auth = (()=>{
 				name: $('form input[name=name]').val()
 				};
 		$.ajax({
-			url: $.ctx()+'/users/cust/'+data.customerId,
+			url: $.ctx()+'/employees/'+data.customerId,
 			type: 'post',
 			data: JSON.stringify(data),
 			dataType: 'json',
