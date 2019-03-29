@@ -32,6 +32,9 @@ auth = (()=>{
 				.appendTo('#left_content ul.nav')
 				.click(function(){
 					let that = $(this).attr('name');
+					//클릭 시 배경색으로 표시
+					$(this).addClass('active');
+					$(this).siblings().removeClass('active');
 					alert(that+' 누름');
 					
 					switch(that){
@@ -68,12 +71,12 @@ auth = (()=>{
 					
 				});
 			});
+			$('li[name=login]').addClass('active');
 		})
 		.fail(()=>{
 			alert('componenet/compo.js를 찾지 못 했습니다.');
 		});
 		
-	
 	};
 	
 	let login = ()=>{
@@ -98,11 +101,7 @@ auth = (()=>{
 									address:d.address,
 									postalCode:d.postalCode
 								}));*/
-						$.getScript($.js()+'/customer/cust.js')
-						.done((d)=>{
-							cust.init(d);
-						})
-						.fail(()=>{});
+						cust.init(d);
 						
 					}else{
 						alert('로그인 실패');
