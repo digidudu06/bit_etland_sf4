@@ -11,5 +11,17 @@ prod = (()=>{
 	let setContentView =()=>{
 		$(r_ctn).html(compo.carousel());
 	};
+	let post=()=>{
+		
+	};
+	let get=()=>{
+		
+	};
+	let put=()=>{
+		
+	};
+	let del=()=>{
+		
+	};
 	return {init:init};
 })();
