@@ -92,7 +92,7 @@ cust = (()=>{
 		$('#right_content').empty();
 		$.getJSON($.ctx()+'/customers/page/1', d=>{
 			alert('커스터머 리스트');
-			$('<table id="tab"><tr><th>NO.</th>'
+			$('<table class="table table-bordered" id="tab"><tr><th>NO.</th>'
 					+'<th>이름</th>'
 					+'<th>아이디</th>'
 					+'<th>전화번호</th>'
@@ -105,7 +105,7 @@ cust = (()=>{
 				/*alert(j.customerId);*/
 				
 				$('<tr>'
-					+'	<td>NO.</td>'
+					+'	<td>'+j.no+'</td>'
 					+'	<td>'+j.customerName+'</td>'
 					+'	<td>'+j.customerId+'</td>'
 					+'	<td>'+j.phone+'</td>'
