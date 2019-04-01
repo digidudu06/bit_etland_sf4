@@ -20,6 +20,20 @@
 		  	AND PASSWORD LIKE #{password}
 	  	</if>
 	</select>
+	<select id="selectCustomers" resultType="com.bit_etland.web.cust.Customer"
+		parameterType="com.bit_etland.web.cmm.Proxy">
+	  SELECT 
+		CUSTOMER_ID customerId, 
+        CUSTOMER_NAME customerName, 
+        PASSWORD password, 
+        ADDRESS address, 
+        CITY city, 
+        POSTAL_CODE postalCode, 
+        SSN ssn, 
+        PHOTO photo, 
+        PHONE phone
+	  FROM CUSTOMERS
+	</select>
 
 	<insert 
 		id="insertCustomer"

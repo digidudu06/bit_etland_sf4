@@ -61,6 +61,10 @@ auth = (()=>{
 						$(r_ctn).empty();
 						$(compo.emp_access_form())
 						.appendTo(r_ctn);
+						$('#access_btn').click(e=>{
+							e.preventDefault();
+							access();
+						});
 						break;
 					case 'regist': 
 						$(r_ctn).empty();
@@ -78,7 +82,7 @@ auth = (()=>{
 		});
 		
 	};
-	
+	//=============================================================component
 	let login = ()=>{
 		
 			let data = {
@@ -193,34 +197,36 @@ auth = (()=>{
 		});
 	};
 	let access = ()=>{
-		let data = {
-				emploueeId: $('form input[name=emploueeIdS]').val(),
-				name: $('form input[name=name]').val()
-				};
-		$.ajax({
-			url: $.ctx()+'/employees/'+data.customerId,
-			type: 'post',
-			data: JSON.stringify(data),
-			dataType: 'json',
-			contentType: 'application/json',
-			success: d=>{
-				if(d.customerId != ''){
-					alert('로그인 성공'+d.customerId);
-					$(r_ctn).html(compo.cust_mypage(
-							{name:d.customerName,
-								id:d.customerId,
-								city:d.city,
-								address:d.address,
-								postalCode:d.postalCode
-							}));
-				}else{
-					alert('로그인 실패');
-				}
-			},
-			error: e=>{
-				alert('에러');
-			}
-		});
+		let ok = confirm('사원 입니까?');
+		if(ok){
+			let emp_no = prompt('사원번호 입력하세요');
+			$.getJSON($.ctx()+'/employees', d=>{
+					if(emp_no === d.employeeId){
+						alert('사원 인증');	
+						// 이름 입력창을 그린다.
+						$(r_ctn).empty();
+						$(r_ctn).html(compo.emp_access_form());
+						$('<label for="name"><b>name</b></label>'
+						+'<input type="text" placeholder="Enter name" id="name" name="name" value="류지혁" required>').prependTo('form div#input_zone');
+						$('form button[type=submit]').click(e=>{
+							e.preventDefault();
+							if($('#name').val() === d.name){
+							cust.list();
+							}else{
+								alert('사원번호가 일치하지 않습니다.1');
+							}
+						});
+						
+					}else{
+						alert('사원번호가 일치하지 않습니다.2');
+						// 사원 번호가 일치하지 않습니다.
+					}
+				});
+		}else{
+			alert('사원 전용 페이지 입니다.');
+			// 사원 전용 페이지 입니다.
+			// 되돌아가기 버튼이 보인다.
+		}
 	};
 	
 	

@@ -12,47 +12,41 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit_etland.web.cmm.IConsumer;
 import com.bit_etland.web.cmm.IFunction;
+import com.bit_etland.web.cmm.ISupplier;
 import com.bit_etland.web.cmm.PrintService;
 import com.bit_etland.web.cmm.Users;
 import com.bit_etland.web.emp.EmployeeMapper;
 
 @RestController
-@RequestMapping("/emp")
 public class EmpController {
 	private static final Logger logger = LoggerFactory.getLogger(EmpController.class);
 	@Autowired Employee emp;
 	@Autowired EmployeeMapper empMap;
 	@Autowired Map<String, Object> map;
-	@Autowired Users<?> user;
 	@Autowired PrintService ps;
 	
-	@PostMapping("/emp/{userid}")
-	public Employee login(@PathVariable String user,
-							@PathVariable String userid,
-							@RequestBody Employee param) {
+	@GetMapping("/employees")
+	public Employee access() {
 		logger.info("==============emp login===============");
-		IFunction i = (Object o) -> empMap.selectEmployee(param);
-		
-		return (Employee) i.apply(param);
+		ISupplier i = ()-> empMap.findOneEmployee();
+		return (Employee) i.get();
 	}
 	@SuppressWarnings("unchecked")
-	@GetMapping("/{user}/list")
+	@GetMapping("/employees/page/{page}")
 	public List<Users<?>> list(
-			@PathVariable String user,
-			@RequestBody Map<?,?> param
-			) {
+			@PathVariable String page,
+			@RequestBody Map<?,?> param) {
 		logger.info("==============emp join ===============");
 		IFunction i = (Object o) -> empMap.selectEmplyoees(param);
 		
 		return (List<Users<?>>) i.apply(param);
 	}	
-	@PostMapping("/emp")
-	public Map<?, ?> join(@RequestBody Employee param) {
+	@PostMapping("/employees")
+	public Map<?, ?> register(@RequestBody Employee param) {
 		logger.info("==============emp join ===============");
 		System.out.println(param.toString());
 		IConsumer i = (Object o) -> empMap.insertEmployee(param);
@@ -61,7 +55,7 @@ public class EmpController {
 		map.put("msg", "success");
 		return map;
 	}
-	@PutMapping("/emp/{userid}")
+	@PutMapping("/employees/{userid}")
 	public Map<?, ?> update(
 			@PathVariable String userid,
 			@RequestBody Employee param) {
@@ -72,7 +66,7 @@ public class EmpController {
 		map.put("msg", "success");
 		return map;
 	}
-	@DeleteMapping("/emp/{userid}")
+	@DeleteMapping("/employees/{userid}")
 	public Map<?, ?> delete(
 			@PathVariable String userid,
 			@RequestBody Employee param) {

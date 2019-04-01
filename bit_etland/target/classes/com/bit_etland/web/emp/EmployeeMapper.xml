@@ -2,42 +2,21 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bit_etland.web.cust.CustomerMapper">
-	<select id="selectOneCustomer" resultType="com.bit_etland.web.cust.Customer">
+<mapper namespace="com.bit_etland.web.emp.EmployeeMapper">
+	<select id="findOneEmployee" resultType="com.bit_etland.web.emp.Employee">
 	  SELECT 
-		CUSTOMER_ID customerId, 
-        CUSTOMER_NAME customerName, 
-        PASSWORD password, 
-        ADDRESS address, 
-        CITY city, 
-        POSTAL_CODE postalCode, 
-        SSN ssn, 
-        PHOTO photo, 
-        PHONE phone
-	  FROM CUSTOMERS 
-	  WHERE CUSTOMER_ID LIKE #{customerId}
-	  	<if test="password != null">
-		  	AND PASSWORD LIKE #{password}
-	  	</if>
-	</select>
-	<select id="selectCustomers" resultType="com.bit_etland.web.cust.Customer"
-		parameterType="com.bit_etland.web.cmm.Proxy">
-	  SELECT 
-		CUSTOMER_ID customerId, 
-        CUSTOMER_NAME customerName, 
-        PASSWORD password, 
-        ADDRESS address, 
-        CITY city, 
-        POSTAL_CODE postalCode, 
-        SSN ssn, 
-        PHOTO photo, 
-        PHONE phone
-	  FROM CUSTOMERS
+		EMPLOYEE_ID employeeId,
+		BIRTH_DATE birthDate,
+		PHOTO photo,
+		NOTES notes,
+		NAME name,
+		MANAGER manager   
+	  FROM EMPLOYEES 
 	</select>
 
 	<insert 
 		id="insertCustomer"
-		parameterType="com.bit_etland.web.cust.Customer"
+		parameterType="com.bit_etland.web.emp.Employee"
 		flushCache="true"
 		statementType="PREPARED"
 		timeout="20">
@@ -63,7 +42,7 @@
 	
 	<update
 		id="updateCustomer"
-		parameterType="com.bit_etland.web.cust.Customer"
+		parameterType="com.bit_etland.web.emp.Employee"
 		flushCache="true"
 		statementType="PREPARED"
 		timeout="20">
@@ -78,7 +57,7 @@
   	  
 	<delete
 		id="deleteCustomer"
-		parameterType="com.bit_etland.web.cust.Customer"
+		parameterType="com.bit_etland.web.emp.Employee"
 		flushCache="true"
 		statementType="PREPARED"
 		timeout="20">

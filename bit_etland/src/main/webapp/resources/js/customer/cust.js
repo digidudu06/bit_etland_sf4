@@ -1,16 +1,17 @@
 var cust = cust || {}
 cust = (()=>{
-	let r_ctn, l_ctn;
+	let r_ctn, l_ctn, data;
 	
 	let init =(d)=>{
 		r_ctn = '#right_content';
 		l_ctn = '#left_content ul.nav';
-		onCreate(d);
+		data = d;
+		onCreate();
 	};
-	let onCreate = (d)=>{
-		setContentView(d);
+	let onCreate = ()=>{
+		setContentView();
 	};
-	let setContentView =(d)=>{
+	let setContentView =()=>{
 		
 		$(l_ctn).empty();
 
@@ -35,7 +36,7 @@ cust = (()=>{
 					switch(that){
 					case 'mypage': 
 						$(r_ctn).empty();
-						mypage(d);
+						mypage();
 						break;
 					case 'update': 
 						$(r_ctn).empty();
@@ -74,18 +75,49 @@ cust = (()=>{
 					
 				});
 			});
-			mypage(d);
+			mypage();
 		$('li[name=mypage]').addClass('active');
 	};
-	let mypage = d=>{
+	let mypage = ()=>{
 		$(r_ctn).html(compo.cust_mypage(
-			{name:d.customerName,
-				id:d.customerId,
-				city:d.city,
-				address:d.address,
-				postalCode:d.postalCode
+			{name:data.customerName,
+				id:data.customerId,
+				phone:data.phone,
+				city:data.city,
+				address:data.address,
+				postalCode:data.postalCode
 			}));
 	};
-	return{init:init};
+	let list = ()=>{
+		$('#right_content').empty();
+		$.getJSON($.ctx()+'/customers/page/1', d=>{
+			alert('커스터머 리스트');
+			$('<table id="tab"><tr><th>NO.</th>'
+					+'<th>이름</th>'
+					+'<th>아이디</th>'
+					+'<th>전화번호</th>'
+					+'<th>주소</th>'
+					+'<th>상세주소</th>'
+					+'<th>우편번호</th>'
+					+'</tr></table>').appendTo('#right_content');
+			
+			$.each(d, (i,j)=>{
+				/*alert(j.customerId);*/
+				
+				$('<tr>'
+					+'	<td>NO.</td>'
+					+'	<td>'+j.customerName+'</td>'
+					+'	<td>'+j.customerId+'</td>'
+					+'	<td>'+j.phone+'</td>'
+					+'	<td>'+j.city+'</td>'
+					+'	<td>'+j.address+'</td>'
+					+'	<td>'+j.postalCode+'</td>'
+					+'</tr>'
+					).appendTo('#tab');
+			});
+		});
+	};
+	return{init:init,
+		list:list};
 
 })();

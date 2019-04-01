@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bit_etland.web.cmm.IConsumer;
 import com.bit_etland.web.cmm.IFunction;
+import com.bit_etland.web.cmm.ISupplier;
 import com.bit_etland.web.cmm.PrintService;
+import com.bit_etland.web.cmm.Proxy;
 import com.bit_etland.web.cmm.Users;
 
 @RestController
@@ -26,8 +28,9 @@ public class CustController {
 	@Autowired Customer cust;
 	@Autowired CustomerMapper custMap;
 	@Autowired Map<String, Object> map;
-	@Autowired Users<?> user;
 	@Autowired PrintService ps;
+	@Autowired List<Customer> list;
+	@Autowired Proxy pxy;
 	
 	@PostMapping("/customers/{userid}")
 	public Customer login(
@@ -40,14 +43,17 @@ public class CustController {
 	}
 	@SuppressWarnings("unchecked")
 	@GetMapping("/customers/page/{page}")
-	public List<Customer> list(
-			@PathVariable String page,
-			@RequestBody Map<?,?> param
-			) {
+	public List<Customer> list(@PathVariable String page) {
 		logger.info("==============customer list ===============");
-		IFunction i = (Object o) -> custMap.selectCustomers(param);
+		//page_num, page_size, block_size
+		map.clear();
+		map.put("page_num", "1");
+		map.put("page_size", "5");
+		map.put("block_size", "5");
+		pxy.carryOut(map);
+		IFunction i = (Object o) -> custMap.selectCustomers(pxy);
 		
-		return (List<Customer>) i.apply(param);
+		return (List<Customer>) i.apply(pxy);
 	}	
 	@PostMapping("/customers")
 	public Map<?, ?> join(@RequestBody Customer param) {

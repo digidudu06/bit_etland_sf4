@@ -73,16 +73,16 @@ compo = {
 		},
 		emp_access_form : ()=>{
 			return '<h2>Login Form</h2>'
-			+'<form action="/action_page.php">'
+			+'<form>'
 			+'  <div class="imgcontainer">'
 			+'    <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">'
 			+'	</div>'
-			+'  <div class="container">'
-			+'    <label for="emploueeId"><b>emploueeId</b></label>'
-			+'    <input type="text" placeholder="Enter emploueeId" name="emploueeId" required>'
+			+'  <div id="input_zone" class="container">'
+			/*+'    <label for="employeeId"><b>employeeId</b></label>'
+			+'    <input type="text" placeholder="Enter employeeId" name="employeeId" value="1000" required>'
 			+'    <label for="name"><b>name</b></label>'
-			+'    <input type="text" placeholder="Enter name" name="name" required>'
-			+'    <button type="submit">ACCESS</button>'
+			+'    <input type="text" placeholder="Enter name" name="name" value="류지혁" required>'*/
+			+'    <button type="submit" id="access_btn">ACCESS</button>'
 			+'  </div>'
 			+'  <div class="container" style="background-color:#f1f1f1">'
 			+'    <button type="button" class="cancelbtn">Cancel</button>'
