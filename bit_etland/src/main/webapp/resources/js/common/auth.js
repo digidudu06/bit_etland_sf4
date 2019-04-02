@@ -1,9 +1,10 @@
 var auth = auth || {};
 auth = (()=>{
-	let r_ctn;
-	
+	let r_ctn, l_ctn;
+//	const err_msg = ''; const는 상수
 	let init = ()=>{
 		r_ctn = '#right_content';
+		l_ctn = '#left_content ul.nav';
 		onCreate();
 	};
 	let onCreate = ()=>{
@@ -11,25 +12,17 @@ auth = (()=>{
 	};
 	let setContentView =()=>{
 		$.getScript($.js()+'/component/compo.js', ()=>{
-			
 			$(r_ctn).html(compo.cust_login_form());
-			
 			$('form button[type=submit]').click(e=>{
 				e.preventDefault();	//이벤트 전파(버블링)를 중단한다. default된 css를 무효화
 				login();
 			});
 			
-			$('#left_content ul.nav').empty();
-			let arr = [
-			{name: 'login', val:'로그인'},
-			{name: 'join', val:'회원가입'},
-			{name: 'access', val:'사원접속'},
-			{name: 'regist', val:'사원등록'}
-			];
-			$.each(arr, (i,j)=>{
+			$(l_ctn).empty();
+			$.each(auth_navi(), (i,j)=>{
 				$('<li><a href="#">'+j.val+'</a></li>')
 				.attr('name', j.name)
-				.appendTo('#left_content ul.nav')
+				.appendTo(l_ctn)
 				.click(function(){
 					let that = $(this).attr('name');
 					//클릭 시 배경색으로 표시
@@ -75,6 +68,7 @@ auth = (()=>{
 					
 				});
 			});
+			
 			$('li[name=login]').addClass('active');
 		})
 		.fail(()=>{
@@ -83,6 +77,15 @@ auth = (()=>{
 		
 	};
 	//=============================================================component
+	let auth_navi = ()=>{
+		return [
+			{name: 'login', val:'로그인'},
+			{name: 'join', val:'회원가입'},
+			{name: 'access', val:'사원접속'},
+			{name: 'regist', val:'사원등록'}
+			];
+			
+	};
 	let login = ()=>{
 		
 			let data = {
@@ -212,6 +215,7 @@ auth = (()=>{
 							e.preventDefault();
 							if($('#name').val() === d.name){
 							cust.list();
+							emp.init();
 							}else{
 								alert('사원번호가 일치하지 않습니다.1');
 							}

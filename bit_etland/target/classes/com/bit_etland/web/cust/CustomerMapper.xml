@@ -3,36 +3,42 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit_etland.web.cust.CustomerMapper">
+<resultMap id="result" type="hashmap">
+  <id property="customerId" column="CUSTOMER_ID" />
+  <result property="customerName" column="CUSTOMER_NAME"/>
+  <result property="password" column="PASSWORD"/>
+  <result property="ssn" column="SSN"/>
+  <result property="photo" column="PHOTO"/>
+  <result property="phone" column="PHONE"/>
+  <result property="city" column="CITY"/>
+  <result property="address" column="ADDRESS"/>
+  <result property="postalCode" column="POSTAL_CODE"/>
+  <result property="rownum" column="ROWNUM"/>
+</resultMap>
 	<select id="selectOneCustomer" resultType="com.bit_etland.web.cust.Customer">
 	  SELECT 
 		CUSTOMER_ID customerId, 
-        CUSTOMER_NAME customerName, 
-        PASSWORD password, 
-        ADDRESS address, 
-        CITY city, 
-        POSTAL_CODE postalCode, 
-        SSN ssn, 
-        PHOTO photo, 
-        PHONE phone
-	  FROM CUSTOMERS 
+		CUSTOMER_NAME customerName, 
+		PASSWORD password, 
+		ADDRESS address, 
+		CITY city, 
+		POSTAL_CODE postalCode, 
+		SSN ssn, 
+		PHOTO photo, 
+		PHONE phone
+	  FROM CUSTOMERS
 	  WHERE CUSTOMER_ID LIKE #{customerId}
 	  	<if test="password != null">
 		  	AND PASSWORD LIKE #{password}
 	  	</if>
 	</select>
-	<select id="selectCustomers" resultType="com.bit_etland.web.cust.Customer"
+	<select id="selectCustomers" resultMap="result"
 		parameterType="com.bit_etland.web.cmm.Proxy">
-	  SELECT 
-		CUSTOMER_ID customerId, 
-        CUSTOMER_NAME customerName, 
-        PASSWORD password, 
-        ADDRESS address, 
-        CITY city, 
-        POSTAL_CODE postalCode, 
-        SSN ssn, 
-        PHOTO photo, 
-        PHONE phone
-	  FROM CUSTOMERS
+	SELECT @ROWNUM:=@ROWNUM+1 AS rownum, 
+					C.*
+	FROM CUSTOMERS C, (SELECT @ROWNUM:=0) TEMP
+	ORDER BY rownum DESC 
+	LIMIT #{startRow}, #{pageSize}
 	</select>
 
 	<insert 

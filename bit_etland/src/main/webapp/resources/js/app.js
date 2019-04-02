@@ -5,19 +5,19 @@ app = (() => {
 		app.$.init(x);
 	};
 	let onCreate = ()=>{
-		setContentView();
-	};
-	let setContentView = ()=>{
 		$.when(
 				$.getScript($.js()+'/component/compo.js'),
 				$.getScript($.js()+'/product/prod.js'),
 				$.getScript($.js()+'/customer/cust.js'),
 				$.getScript($.js()+'/common/auth.js'),
 				$.getScript($.js()+'/employee/emp.js')
-		).done(()=>{
+		).done(()=>{//콜백
 			auth.init();
-		}//콜백		
-		);//when done
+		});//when done
+		setContentView();
+	};
+	let setContentView = ()=>{
+		
 		
 	};
 	return {init : init, onCreate : onCreate};
