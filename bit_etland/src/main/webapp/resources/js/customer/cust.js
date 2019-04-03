@@ -126,12 +126,24 @@ cust = (()=>{
 					).appendTo('#tab');
 			});
 			
-			$('<div style="height: 50px"></div>').appendTo('#content_1');
-			$('<div class="pagination"></div>').appendTo('#content_2');
+			/*
+			 * <div class="container">
+  <h2>Pagination</h2>
+  <p>The .pagination class provides pagination links:</p>                  
+  <ul class="pagination">
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+  </ul>
+</div>
+			 * */
+			$('<div class="container" style="height: 50px"></div>').appendTo('#content_2');
+			$('<ul class="pagination"></ul>').appendTo('.container');
 			
 			if(d.pxy.existPrev){
 				$('<li><a>&laquo;</a></li>')
-				.attr('href',$.ctx()+'/customer/page/'+d.pxy.prevBlock)
 				.appendTo('.pagination')
 				.click(()=>{
 					list(d.pxy.prevBlock);
@@ -141,7 +153,6 @@ cust = (()=>{
 			for(i=d.pxy.startPage;i<=d.pxy.endPage;i++){
 				if(d.pxy.pageNum==i){
 					$('<li><a class="page active">'+i+'</a></li>')
-					.attr('href',$.ctx()+'/customer/page/'+i)
 					.appendTo('.pagination')
 					.click(function(){
 						alert($(this).text());
@@ -149,7 +160,6 @@ cust = (()=>{
 					});
 				}else{
 					$('<li><a class="page">'+i+'</a></li>')
-					.attr('href',$.ctx()+'/customer/page/'+i)
 					.appendTo('.pagination')
 					.click(function(){
 						alert($(this).text());
@@ -159,7 +169,6 @@ cust = (()=>{
 			}
 			if(d.pxy.existNext){
 				$('<li><a>&raquo;</a></li>')
-				.attr('href',$.ctx()+'/customer/page/'+d.pxy.nextBlock)
 				.appendTo('.pagination')
 				.click(()=>{
 					list(d.pxy.nextBlock);

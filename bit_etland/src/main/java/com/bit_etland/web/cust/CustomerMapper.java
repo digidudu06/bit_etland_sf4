@@ -19,6 +19,7 @@ public interface CustomerMapper {
 	public Map<String, Map<?,?>> selectPhone(Map<?,?> m);
 	
 	public int countCustomer(Map<?,?> m);
+	public int countAllCustomer();
 	
 	public void updateCustomer(Customer cus);
 	

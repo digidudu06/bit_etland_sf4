@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bit_etland.web.cmm.IConsumer;
 import com.bit_etland.web.cmm.IFunction;
+import com.bit_etland.web.cmm.ISupplier;
+import com.bit_etland.web.cmm.Proxy;
 import com.bit_etland.web.cmm.Users;
 import com.bit_etland.web.cust.CustController;
 
@@ -25,7 +27,7 @@ public class ProductController {
 	@Autowired Map<String, Object> map;
 	@Autowired ProductMapper proMap;
 	@Autowired Product pro;
-	
+	@Autowired Proxy pxy;
 	@PostMapping("/phones")
 	public Map<?, ?> insert(
 			@RequestBody Product param) {
@@ -36,12 +38,20 @@ public class ProductController {
 	}
 	
 	@GetMapping("/phones/page/{page}")
-	public List<Product> list(
-			@PathVariable String page,
-			@RequestBody Product param
-			) {
-		IFunction i = (Object o) -> proMap.selectProductList(map);
-		return (List<Product>) i.apply(param);
+	public Map<?,?> list(@PathVariable String page) {
+		map.clear();
+		map.put("page_num", page);
+		map.put("page_size", "5");
+		map.put("block_size", "5");
+		ISupplier sup = () -> proMap.countAllProduct();
+		map.put("row_count", sup.get());
+		pxy.carryOut(map);
+		IFunction i = (Object o) -> proMap.selectProducts(pxy);
+		List<?> list =(List<?>) i.apply(pxy);
+		map.clear();
+		map.put("list", list);
+		map.put("pxy", pxy);
+		return map;
 	}
 	@GetMapping("/phones/{prodid}")
 	public Product select(

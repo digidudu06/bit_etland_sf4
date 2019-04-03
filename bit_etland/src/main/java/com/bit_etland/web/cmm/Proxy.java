@@ -23,27 +23,34 @@ public class Proxy {
 		String _blockSize = (String)paramMap.get("block_size");
 		this.blockSize = (_blockSize == null) ? 5 : Integer.parseInt(_blockSize);
 		
-		//this.rowCount = CustomerServiceImpl.getInstance().countCustomer(null);
-//		rowCount = Integer.parseInt((String)paramMap.get("rowCount"));
+		this.rowCount = (int) paramMap.get("row_count");
 		System.out.println("전체 카운트" + this.rowCount);
-
-		startRow = (pageNum - 1) * pageSize + 1;
-		//endRow = (startRow + (pageSize - 1) < rowCount) ? startRow + (pageSize - 1) : rowCount;
+		int nmg = rowCount % pageSize;
+		int pageCount = (nmg==0)? rowCount/pageSize : rowCount/pageSize+1;
+		System.out.println("pageCount@@@@" + pageCount);
+		startRow = (pageNum - 1) * pageSize;
+		endRow = (startRow + (pageSize - 1) < rowCount) ? startRow + (pageSize - 1) : rowCount;
 
 		System.out.println("토탈::::::" + rowCount + "::::스타트::::" + startRow + ":::엔드:::" + endRow);
 
 		int blockNum = 0;
 		blockNum = (pageNum - 1) / blockSize;
-
+//int pageCount = (int) Math.ceil(rowCount / (double) pageSize);
+		
+		if(existPrev) {
+			startPage=blockNum*blockSize+1;
+		}else {
+			startPage=1;
+		}
+		
 		startPage = pageNum -((pageNum-1)%blockSize);
-
-		int pageCount = (int) Math.ceil(rowCount / (double) pageSize);
-		System.out.println("pageCount@@@@" + pageCount);
-
 		endPage = startPage+(blockSize-1);
+		
+		if(endPage>pageCount) {
+			endPage=pageCount;
+		}
 
 		System.out.println("startPage@@@@" + startPage + "  endPage@@@@" + endPage);
-
 		prevBlock = startPage - blockSize;
 		nextBlock = startPage + blockSize;
 

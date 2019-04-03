@@ -32,6 +32,11 @@
 		  	AND PASSWORD LIKE #{password}
 	  	</if>
 	</select>
+	
+	<select id="countAllCustomer" resultType="int">
+		SELECT COUNT(*) FROM CUSTOMERS
+	</select>
+	
 	<select id="selectCustomers" resultMap="result"
 		parameterType="com.bit_etland.web.cmm.Proxy">
 	SELECT @ROWNUM:=@ROWNUM+1 AS rownum, 

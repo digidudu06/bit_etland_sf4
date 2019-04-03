@@ -25,23 +25,17 @@ emp = (()=>{
 				switch(that){
 				case 'cust_list': 
 					$(r_ctn).empty();
-					cust.list();
+					cust.list(1);
 					break;
 				case 'gds_regi': 
 					$(r_ctn).empty();
-					$(compo.prod_regi())
-					.appendTo(r_ctn);
+					prod.post();
 					
 					break;
 				case 'gds_list': 
 					$(r_ctn).empty();
-					$(compo.cust_join_form())
-					.appendTo(r_ctn);
-					$('form button[type=submit]').click(e=>{
-						alert('누름');
-						e.preventDefault();
-						join();
-					});
+					prod.get(1);
+					
 					break;
 				case 'gds_modi': 
 					$(r_ctn).empty();
