@@ -43,7 +43,7 @@ public class CustController {
 		logger.info("==============customer list ===============");
 		//page_num, page_size, block_size
 		map.clear();
-		map.put("page_num", "1");
+		map.put("page_num", page);
 		map.put("page_size", "5");
 		map.put("block_size", "5");
 		pxy.carryOut(map);

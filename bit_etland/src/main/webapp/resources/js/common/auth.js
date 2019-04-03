@@ -214,7 +214,7 @@ auth = (()=>{
 						$('form button[type=submit]').click(e=>{
 							e.preventDefault();
 							if($('#name').val() === d.name){
-							cust.list();
+							cust.list(1);
 							emp.init();
 							}else{
 								alert('사원번호가 일치하지 않습니다.1');

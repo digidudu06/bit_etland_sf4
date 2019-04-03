@@ -89,10 +89,9 @@ cust = (()=>{
 				postalCode:data.postalCode
 			}));
 	};
-	let list = ()=>{
-		
-		$('#right_content').empty();
-		$.getJSON($.ctx()+'/customers/page/1', d=>{
+	let list = (x)=>{
+		$.getJSON($.ctx()+'/customers/page/'+x, d=>{
+			$('#right_content').empty();
 			alert('커스터머 리스트');
 			
 			$('<div class="grid-item" id="content_1">'
@@ -129,26 +128,40 @@ cust = (()=>{
 			
 			$('<div style="height: 50px"></div>')
 			.appendTo('#content_1');
-			let html = '<div class="pagination">';
+			$('<div class="pagination"></div>').appendTo('#content_2');
+			
 			if(d.pxy.existPrev){
-				html += '<a href="">&laquo;</a>';
+				$('<li><a>&laquo;</a></li>')
+				.attr('href',$.ctx()+'/customer/page/'+d.pxy.prevBlock)
+				.appendTo('.pagination');
 			}
-			let i=0, a=1;
-			for(i=0;i<5;i++){
-				if(d.pxy.pageNum==a){
-					html += '<li><a href="#" class="page active">'+a+'</a></li>';
-					a++;
+			let i=0;
+			for(i=d.pxy.startPage;i<=d.pxy.endPage;i++){
+				if(d.pxy.pageNum==i){
+					$('<li><a class="page active">'+i+'</a></li>')
+					.attr('href',$.ctx()+'/customer/page/'+i)
+					.appendTo('.pagination')
+					.click(function(){
+						alert($(this).text());
+						list($(this).text());
+					});
 				}else{
-					html += '<li><a href="#" class="page">'+a+'</a></li>';
-					a++;
+					$('<li><a class="page">'+i+'</a></li>')
+					.attr('href',$.ctx()+'/customer/page/'+i)
+					.appendTo('.pagination')
+					.click(function(){
+						alert($(this).text());
+						list($(this).text());
+					});
 				}
 			}
 			if(d.pxy.existNext){
-				html += '<li><a href="">&raquo;</a></li>'
+				$('<li><a>&raquo;</a></li>')
+				.attr('href',$.ctx()+'/customer/page/'+d.pxy.nextBlock)
+				.appendTo('.pagination');
 			}
-			html += '</div>';
 			
-			$(html).appendTo('#content_2');
+			/*$(html).appendTo('#content_2');*/
 		});
 		
 		/*
