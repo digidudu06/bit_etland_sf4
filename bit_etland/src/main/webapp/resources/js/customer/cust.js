@@ -126,14 +126,16 @@ cust = (()=>{
 					).appendTo('#tab');
 			});
 			
-			$('<div style="height: 50px"></div>')
-			.appendTo('#content_1');
+			$('<div style="height: 50px"></div>').appendTo('#content_1');
 			$('<div class="pagination"></div>').appendTo('#content_2');
 			
 			if(d.pxy.existPrev){
 				$('<li><a>&laquo;</a></li>')
 				.attr('href',$.ctx()+'/customer/page/'+d.pxy.prevBlock)
-				.appendTo('.pagination');
+				.appendTo('.pagination')
+				.click(()=>{
+					list(d.pxy.prevBlock);
+				});
 			}
 			let i=0;
 			for(i=d.pxy.startPage;i<=d.pxy.endPage;i++){
@@ -158,7 +160,10 @@ cust = (()=>{
 			if(d.pxy.existNext){
 				$('<li><a>&raquo;</a></li>')
 				.attr('href',$.ctx()+'/customer/page/'+d.pxy.nextBlock)
-				.appendTo('.pagination');
+				.appendTo('.pagination')
+				.click(()=>{
+					list(d.pxy.nextBlock);
+				});
 			}
 			
 			/*$(html).appendTo('#content_2');*/
