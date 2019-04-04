@@ -11,10 +11,51 @@ prod = (()=>{
 	let setContentView =()=>{
 		$(r_ctn).html(compo.carousel());
 	};
-	let post=()=>{
+	let regi=()=>{
+		$('#right_content').empty();
 		$(compo.prod_regi())
 		.appendTo('#right_content');
-		
+		$('#prd_post_btn').click(e=>{
+			e.preventDefault();
+			
+			let freebies = [];
+			$('.checks:checked').each(function(i) {
+				freebies.push($(this).val());
+			});
+			let pname = $('#product_name').val();
+			let price = $('#price').val();
+			let unit = $('#unit').val();
+			if($.fn.nullChecker([pname,price,unit])){
+				alert('반칸을 입력해주세요.');
+			}else{
+				alert('반칸이 입력됨.');
+			}
+			
+			let data = {categoryId:$('#category_id').val(),
+					productName:$('#product_name').val(),
+					price:$('#price').val(),
+					unit:$('#unit').val(),
+					supplierId:$('#supplier_id').val(),
+					color:$('input[name=color]:checked').val(),
+					freebies:freebies,
+					comment:$('#comment').text()		
+			};
+			
+			$.ajax({
+				url:$.ctx()+'/phones',
+				type:'post',
+				data:JSON.stringify(data),
+				dataType:'json',
+				contentType:'application/json',
+				success:d=>{
+					alert('성공');
+					regi();
+				},
+				error:e=>{
+					alert('에러');
+				}
+			});/*ajax끝*/
+		});
 	};
 	let get=(x)=>{
 		$.getJSON($.ctx()+'/phones/page/'+x, d=>{
@@ -90,5 +131,5 @@ prod = (()=>{
 	let del=()=>{
 		
 	};
-	return {init:init, get:get};
+	return {init:init, get:get, regi:regi};
 })();

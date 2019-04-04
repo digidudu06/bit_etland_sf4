@@ -1,5 +1,7 @@
 package com.bit_etland.web.prod;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -12,5 +14,7 @@ public class Product {
 	supplierId,
 	categoryId,
 	unit,
+	color,
 	price;
+	private List<String> freebies; //2개 이상의 값을 받음
 }

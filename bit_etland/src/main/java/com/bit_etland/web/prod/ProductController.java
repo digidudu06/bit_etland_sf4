@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bit_etland.web.cmm.IConsumer;
 import com.bit_etland.web.cmm.IFunction;
 import com.bit_etland.web.cmm.ISupplier;
+import com.bit_etland.web.cmm.PrintService;
 import com.bit_etland.web.cmm.Proxy;
-import com.bit_etland.web.cmm.Users;
 import com.bit_etland.web.cust.CustController;
 
 @RestController
@@ -28,12 +28,18 @@ public class ProductController {
 	@Autowired ProductMapper proMap;
 	@Autowired Product pro;
 	@Autowired Proxy pxy;
+	@Autowired PrintService ps;
 	@PostMapping("/phones")
-	public Map<?, ?> insert(
-			@RequestBody Product param) {
+	public Map<?, ?> regist(
+			@RequestBody Product pro) {
 		logger.info("==============Product insert===============");
-		IConsumer i = (Object o) -> proMap.insertProduct(param);
-		i.accept(param);
+		/*IConsumer i = (Object o) -> proMap.insertProduct(param);
+		i.accept(param);*/
+		List<String> list = pro.getFreebies();
+		ps.accept("리스트:: "+list);
+		System.out.println(pro.toString());
+		map.clear();
+		map.put("regi", "regi");
 		return map;
 	}
 	
@@ -79,6 +85,5 @@ public class ProductController {
 		i.accept(param);
 		return map;
 	}
-	
 
 }

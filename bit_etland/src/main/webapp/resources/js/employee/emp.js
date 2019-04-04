@@ -29,8 +29,7 @@ emp = (()=>{
 					break;
 				case 'gds_regi': 
 					$(r_ctn).empty();
-					prod.post();
-					
+					prod.regi();
 					break;
 				case 'gds_list': 
 					$(r_ctn).empty();

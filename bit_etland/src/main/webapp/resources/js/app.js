@@ -10,6 +10,7 @@ app = (() => {
 				$.getScript($.js()+'/product/prod.js'),
 				$.getScript($.js()+'/customer/cust.js'),
 				$.getScript($.js()+'/common/auth.js'),
+				$.getScript($.js()+'/common/util.js'),
 				$.getScript($.js()+'/employee/emp.js')
 		).done(()=>{//콜백
 			auth.init();

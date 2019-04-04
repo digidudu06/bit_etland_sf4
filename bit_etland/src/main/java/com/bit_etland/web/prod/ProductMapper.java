@@ -10,7 +10,7 @@ import com.bit_etland.web.cmm.Proxy;
 
 @Repository
 public interface ProductMapper {
-	public void insertProduct(Product emp);
+	public void insertProduct(Map<?, ?> map);
 	
 	public List<Product> selectProductList(Map<?,?> map);
 	public List<Product> selectProducts(Proxy pxy);
