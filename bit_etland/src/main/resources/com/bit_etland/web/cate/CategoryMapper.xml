@@ -8,5 +8,8 @@
   <result property="categoryName" column="CATEGORY_NAME" />
   <result property="description" column="DESCRIPTION" />
 </resultMap>
-
+	<select id="txCategory" resultType="string" parameterType="string">
+		SELECT CATEGORY_ID FROM CATEGORIES
+		WHERE CATEGORY_NAME LIKE #{categoryId}
+	</select>
 </mapper>

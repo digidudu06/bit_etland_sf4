@@ -13,6 +13,18 @@ cust = (()=>{
 	};
 	let setContentView =()=>{
 		$(l_ctn).empty();
+		$('#srch_btn').on('click', e=>{
+			e.preventDefault();
+			alert('서치버튼 클릭');
+			let search = $('#search').val();
+			if($.fn.nullChecker([search])){
+				alert('검색어를 입력해주세요.');
+			}else{
+				let val = {s:search, p:1};
+				alert('검색!');
+				srch(val);
+			}
+		});
 		$.each(cust_navi(), (i,j)=>{
 			$('<li><a href="#">'+j.val+'</a></li>')
 			.attr('name', j.name)
@@ -93,7 +105,6 @@ cust = (()=>{
 		$.getJSON($.ctx()+'/customers/page/'+x, d=>{
 			$('#right_content').empty();
 			alert('커스터머 리스트');
-			
 			$('<div class="grid-item" id="content_1">'
 					+'<h2>고객리스트</h2>'
 					+'</div>'
@@ -125,20 +136,6 @@ cust = (()=>{
 					+'</tr>'
 					).appendTo('#tab');
 			});
-			
-			/*
-			 * <div class="container">
-  <h2>Pagination</h2>
-  <p>The .pagination class provides pagination links:</p>                  
-  <ul class="pagination">
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-  </ul>
-</div>
-			 * */
 			$('<div class="container" style="height: 50px"></div>').appendTo('#content_2');
 			$('<ul class="pagination"></ul>').appendTo('.container');
 			
@@ -146,6 +143,7 @@ cust = (()=>{
 				$('<li><a>&laquo;</a></li>')
 				.appendTo('.pagination')
 				.click(()=>{
+					
 					list(d.pxy.prevBlock);
 				});
 			}
@@ -177,34 +175,77 @@ cust = (()=>{
 			
 			/*$(html).appendTo('#content_2');*/
 		});
+	};
+	let srch = x=>{
+		$.getJSON($.ctx()+'/phones/search/'+x.s+'/'+x.p, d=>{
+			$('#right_content').empty();
+			alert('검색 상품 리스트');
+			$('<div class="grid-item" id="content_1">'
+					+'<h2>상품 리스트</h2>'
+					+'</div>'
+				    +'<div class="grid-item" id="content_2">'
+					+'<table class="table table-bordered" id="tab"><tr>'
+					+'<th>이름</th>'
+					+'<th>공급업체</th>'
+					+'<th>카테고리</th>'
+					+'<th>수량</th>'
+					+'<th>가격</th>'
+					+'</tr></table>'
+					+'</div>').appendTo('#right_content');
+			$.each(d.srch_list, (i,j)=>{
+				$('<tr>'
+					+'	<td>'+j.productName+'</td>'
+					+'	<td>'+j.supplierId+'</td>'
+					+'	<td>'+j.categoryId+'</td>'
+					+'	<td>'+j.unit+'</td>'
+					+'	<td>'+j.price+'</td>'
+					+'</tr>'
+					).appendTo('#tab');
+			});
+			
+			$('<div style="height: 50px"></div>').appendTo('#content_1');
+			$('<div class="pagination"></div>').appendTo('#content_2');
+			
+			if(d.pxy.existPrev){
+				$('<li><a>&laquo;</a></li>')
+				.appendTo('.pagination')
+				.click(()=>{
+					let val = {s:x.s, p:d.pxy.prevBlock};
+					srch(val);
+				});
+			}
+			let i=0;
+			for(i=d.pxy.startPage;i<=d.pxy.endPage;i++){
+				if(d.pxy.pageNum==i){
+					$('<li><a class="page active">'+i+'</a></li>')
+					.appendTo('.pagination')
+					.click(function(){
+						alert($(this).text());
+						let val = {s:x.s, p:$(this).text()};
+						srch($(this).text());
+					});
+				}else{
+					$('<li><a class="page">'+i+'</a></li>')
+					.appendTo('.pagination')
+					.click(function(){
+						alert($(this).text());
+						let val = {s:x.s, p:$(this).text()};
+						srch(val);
+					});
+				}
+			}
+			if(d.pxy.existNext){
+				$('<li><a>&raquo;</a></li>')
+				.appendTo('.pagination')
+				.click(()=>{
+					let val = {s:x.s, p:d.pxy.nextBlock};
+					srch(d.pxy.nextBlock);
+				});
+			}
 		
-		/*
-		 * <div style="height: 50px"></div>    
-	<div class="center">
-	  <div class="pagination">
-		  <c:if test="${pagination.existPrev}">
-			  <a href='${ctx}/customer.do?cmd=cust_list&page=list&page_num=${pagination.prevBlock}'>&laquo;</a>
-		  </c:if>
-		  <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" varStatus="status">
-			  <c:choose>
-			  	<c:when test="${pagination.pageNum eq status.index}">
-			  		<a href="#" class="page active">${status.index}</a>
-			  	</c:when>
-			  	<c:otherwise>
-			  		<a href="#" class="page">${status.index}</a>
-			  	</c:otherwise>
-			  </c:choose>
-		  </c:forEach>
-		  
-		  <c:if test="${pagination.existNext}">
-			  <a href='${ctx}/customer.do?cmd=cust_list&page=list&page_num=${pagination.nextBlock}'>&raquo;</a>
-		  </c:if>
-	  </div>
-	</div>
-</div>
-		 * */
+		});
 	};
 	return{init:init,
-		list:list};
-
+		list:list, 
+		srch:srch};
 })();

@@ -9,9 +9,11 @@ emp = (()=>{
 	};
 	let onCreate = ()=>{
 		setContentView();
+		
 	};
 	let setContentView = ()=>{
 		$(l_ctn).empty();
+		
 		$.each(emp_navi(), (i,j)=>{
 			$('<li><a href="#">'+j.val+'</a></li>')
 			.attr('name', j.name)
@@ -66,5 +68,6 @@ emp = (()=>{
 			];
 		
 	};
+
 	return {init:init};
 })();

@@ -25,6 +25,7 @@ prod = (()=>{
 			let pname = $('#product_name').val();
 			let price = $('#price').val();
 			let unit = $('#unit').val();
+			
 			if($.fn.nullChecker([pname,price,unit])){
 				alert('반칸을 입력해주세요.');
 			}else{

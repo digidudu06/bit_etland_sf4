@@ -12,6 +12,25 @@
   <result property="price" column="PRICE" />
   <result property="rownum" column="ROWNUM"/>
 </resultMap>
+	<insert 
+		id="insertProduct"
+		parameterType="com.bit_etland.web.prod.Product"
+		flushCache="true"
+		statementType="PREPARED"
+		timeout="20">
+	        INSERT INTO PRODUCTS (PRODUCT_ID,
+	        						PRODUCT_NAME,
+	        						SUPPLIER_ID,
+	        						CATEGORY_ID,
+	        						UNIT,
+	        						PRICE) 
+		        VALUES (#{productId}, 
+		            #{productName}, 
+		            #{supplierId}, 
+		            #{categoryId}, 
+		            #{unit},
+		            #{price})
+	</insert>
 	<select id="selectProducts" resultMap="result"
 		parameterType="com.bit_etland.web.cmm.Proxy">
 		SELECT @ROWNUM:=@ROWNUM+1 AS rownum,
@@ -21,6 +40,42 @@
 		LIMIT #{startRow}, #{pageSize}
 	</select>
 	
+	<select id="selectProduct" resultMap="result"
+		parameterType="com.bit_etland.web.cmm.Proxy">
+		SELECT @ROWNUM:=@ROWNUM+1 AS rownum,
+			PRODUCT_NAME productName, 
+			PRICE price, 
+			UNIT unit, 
+			SUPPLIER_NAME supplierId,
+			CATEGORY_NAME categoryId 
+		FROM PRODUCTS P
+			JOIN CATEGORIES C
+			ON C.CATEGORY_ID LIKE P.CATEGORY_ID
+			JOIN SUPPLIERS S
+			ON S.SUPPLIER_ID LIKE P.SUPPLIER_ID
+		WHERE 
+		P.PRODUCT_NAME LIKE #{search}
+		OR S.SUPPLIER_NAME LIKE #{search}
+		OR C.CATEGORY_NAME LIKE #{search}
+		OR P.PRICE LIKE #{search}
+		OR P.UNIT LIKE #{search}
+		ORDER BY rownum DESC 
+		LIMIT #{startRow}, #{pageSize}
+	</select>
+	<select id="countProduct" resultType="int">
+		SELECT COUNT(*)
+		FROM PRODUCTS P
+			JOIN CATEGORIES C
+			ON C.CATEGORY_ID LIKE P.CATEGORY_ID
+			JOIN SUPPLIERS S
+			ON S.SUPPLIER_ID LIKE P.SUPPLIER_ID
+		WHERE 
+		P.PRODUCT_NAME LIKE #{search}
+		OR S.SUPPLIER_NAME LIKE #{search}
+		OR C.CATEGORY_NAME LIKE #{search}
+		OR P.PRICE LIKE #{search}
+		OR P.UNIT LIKE #{search}
+	</select>
 	<select id="countAllProduct" resultType="int">
 		SELECT COUNT(*) FROM PRODUCTS
 	</select>

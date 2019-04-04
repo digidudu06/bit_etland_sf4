@@ -13,5 +13,8 @@
   <result property="country" column="COUNTRY" />
   <result property="phone" column="PHONE" />
 </resultMap>
-
+	<select id="txSupplier" resultType="string" parameterType="string">
+		SELECT SUPPLIER_ID FROM SUPPLIERS
+		WHERE SUPPLIER_NAME LIKE #{supplierId}
+	</select>
 </mapper>

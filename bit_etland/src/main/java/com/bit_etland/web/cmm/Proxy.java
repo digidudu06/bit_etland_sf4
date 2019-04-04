@@ -10,9 +10,11 @@ import lombok.Data;
 public class Proxy {
 	private int rowCount, pageNum, pageSize, blockSize, startRow, endRow, startPage, endPage, prevBlock, nextBlock;
 	private boolean existPrev, existNext;
+	private String search;
 
 	public void carryOut(Map<?,?> paramMap) {
 		//page_num, page_size, block_size
+		search = (String) paramMap.get("srch");
 		String _pageNum = (String)paramMap.get("page_num");
 		System.out.println("1........:::페이지 넘:::" + pageNum+"_pageNum ::: "+_pageNum);
 		this.pageNum = (_pageNum == null) ? 1 : Integer.parseInt(_pageNum);

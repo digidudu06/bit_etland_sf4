@@ -50,9 +50,9 @@
         <li><a href="#section3">Photos</a></li>
       </ul><br>
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search Blog..">
+        <input type="text" id="search" name="search" class="form-control" placeholder="Search Blog..">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button">
+          <button id="srch_btn" class="btn btn-default" type="button">
             <span class="glyphicon glyphicon-search"></span>
           </button>
         </span>
