@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bit_etland.web.cate.Category;
 import com.bit_etland.web.cate.CategoryMapper;
@@ -60,6 +61,11 @@ public class ProductController {
 		map.put("msg", "SUCCESS");
 		return map;
 	}
+	@PostMapping("/phones/file")
+	public Map<?,?> fileUpload(@RequestBody MultipartFile file) throws Exception{
+		ps.accept("넘어온 파일명"+file.getName());
+		return map;
+	}
 	
 	@GetMapping("/phones/page/{page}")
 	public Map<?,?> list(@PathVariable String page) {
@@ -91,6 +97,27 @@ public class ProductController {
 		IFunction f2 = (Object o) -> proMap.countProduct(srch);
 		map.put("row_count", f2.apply(srch));
 		System.out.println("로우넘 :::::"+f2.apply(srch));
+		pxy.carryOut(map);
+		IFunction f1 = (Object o) -> proMap.selectProduct(pxy);
+		List<?> list = (List<?>) f1.apply(pxy);
+		ps.accept("리스트:: "+list);
+		map.clear();
+		map.put("pxy", pxy);
+		map.put("srch_list", list);
+		return map;
+	}
+	@GetMapping("/phones/search/{search}/grid/{page}")
+	public Map<?,?> grid(
+			@PathVariable("search") String search, 
+			@PathVariable("page") String page) {
+		logger.info("==============Product grid진입===============");
+		String srch = "%"+search+"%";
+		map.clear();
+		map.put("srch", srch);
+		map.put("page_num", page);
+		map.put("page_size", "9");
+		map.put("block_size", "5");
+		map.put("row_count", proMap.countProduct(srch));
 		pxy.carryOut(map);
 		IFunction f1 = (Object o) -> proMap.selectProduct(pxy);
 		List<?> list = (List<?>) f1.apply(pxy);

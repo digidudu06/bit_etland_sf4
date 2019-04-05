@@ -331,19 +331,10 @@ compo = {
 			+'  <textarea class="form-control" rows="5" id="unit"></textarea>'
 			+'</div>'
 		},
-		
-		
-		/*
-		 * productId,
-	productName, 
-	supplierId,
-	categoryId,
-	unit,
-	price;*/
 		prod_regi : ()=>{
 			return '<div class="col-md-8 order-md-1">'
 	          +'<h4 class="mb-3">상품 등록</h4>'
-	          +'<form class="needs-validation" novalidate="">'
+	          +'<div class="needs-validation" novalidate="">'
 	          +'<div class="row">'
               +'<div class="col-md-5 mb-3">'
                 +'<label for="country">카테고리</label>'
@@ -422,8 +413,6 @@ compo = {
 	                +'<label class="radi custom-control-label" for="paypal">블루</label>'
 	              +'</div>'
 	            +'</div>'
-	            
-	            
 	            +'<hr class="mb-4">'
 	            +'<div class="row">'
 	              +'<div class="col-md-6 mb-3">'
@@ -441,22 +430,43 @@ compo = {
 	            +'<hr class="mb-4">'
 	            +'<div class="row">'
 	              +'<div class="col-md-5 mb-5">'
-	                +'<label for="cc-expiration">이미지 등록(파일 업로드)</label>'
-	                +'<input type="file" class="form-control" id="cc-expiration" placeholder="" required="">'
-	                +'<div class="invalid-feedback">'
-	                +'</div>'
+	              	+'<form id="img_upload_frm" encType="mulipart/form-data">'
+		                +'<label for="cc-expiration">이미지 등록(파일 업로드)</label>'
+		                +'<input type="file" class="form-control" id="cc-expiration" placeholder="" required="">'
+		                +'<div class="invalid-feedback">'
+		                +'</div>'
+		                +'<input type="submit" id="img_upload_frm">'
+	                +'</form>'
 	              +'</div>'
 	              +'<div class="col-md-5 mb-5">'
-	                +'<label for="cc-cvv">이미지 등록(드레그&드랍)</label>'
-	                +'<input type="file" class="form-control" id="cc-cvv" placeholder="" required="">'
-	                +'<div class="invalid-feedback">'
-	                +'</div>'
+	                +'<form id="img_drag_frm" encType="mulipart/form-data">'
+		                +'<label for="cc-cvv">이미지 등록(드레그&드랍)</label>'
+		                +'<input type="file" class="form-control" id="cc-cvv" placeholder="" required="">'
+		                +'<div class="invalid-feedback">'
+		                +'</div>'
+		                +'<input type="submit" id="img_drag_frm">'
+	                +'</form>'
 	              +'</div>'
 	            +'</div>'
 	            +'<hr class="mb-4">'
 	            +'<button id="prd_post_btn" class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>'
-	          +'</form>'
+	          +'</div>'
 	        +'</div>';
+		},
+		grid : ()=>{
+			return '<div id="grid_content2" class="container">'
+			  +'<div id="grid_row" class="row">'
+				+'<div class="col-md-4">'
+					+'<div class="thumbnail">'
+						+'<a href="/w3images/nature.jpg" target="_blank">'
+							+'<img src="/w3images/nature.jpg" alt="Nature" style="width:100%">'
+							+'<div class="caption">'
+								+'<p>Lorem ipsum donec id elit non mi porta gravida at eget metus.</p>'
+							+'</div>'
+						+'</a>'
+					+'</div>'
+				+'</div>'
+			  +'</div>'
+			+'</div>';
 		}
-		
 }

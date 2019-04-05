@@ -68,8 +68,8 @@ auth = (()=>{
 					
 				});
 			});
-			
 			$('li[name=login]').addClass('active');
+			$('#srch_grp').hide();
 		})
 		.fail(()=>{
 			alert('componenet/compo.js를 찾지 못 했습니다.');

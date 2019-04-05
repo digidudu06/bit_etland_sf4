@@ -49,7 +49,7 @@
         <li><a href="#section3">Family</a></li>
         <li><a href="#section3">Photos</a></li>
       </ul><br>
-      <div class="input-group">
+      <div id="srch_grp" class="input-group">
         <input type="text" id="search" name="search" class="form-control" placeholder="Search Blog..">
         <span class="input-group-btn">
           <button id="srch_btn" class="btn btn-default" type="button">

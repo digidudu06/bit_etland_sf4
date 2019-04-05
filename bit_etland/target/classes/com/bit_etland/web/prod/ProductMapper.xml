@@ -52,7 +52,7 @@
 			JOIN CATEGORIES C
 			ON C.CATEGORY_ID LIKE P.CATEGORY_ID
 			JOIN SUPPLIERS S
-			ON S.SUPPLIER_ID LIKE P.SUPPLIER_ID
+			ON S.SUPPLIER_ID LIKE P.SUPPLIER_ID, (SELECT @ROWNUM:=0) TEMP
 		WHERE 
 		P.PRODUCT_NAME LIKE #{search}
 		OR S.SUPPLIER_NAME LIKE #{search}
@@ -61,6 +61,9 @@
 		OR P.UNIT LIKE #{search}
 		ORDER BY rownum DESC 
 		LIMIT #{startRow}, #{pageSize}
+		<!-- $는 '포함된 상태, #은 '이 포함되지 않은 상태
+		쿼리에서 '%${search}%'을 쓰면,
+		자바에서 String srch = "%"+search+"%"을 따로 할 필요 없다. -->
 	</select>
 	<select id="countProduct" resultType="int">
 		SELECT COUNT(*)

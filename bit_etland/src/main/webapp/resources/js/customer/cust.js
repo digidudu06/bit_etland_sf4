@@ -79,6 +79,7 @@ cust = (()=>{
 		});
 		mypage();
 		$('li[name=mypage]').addClass('active');
+		$('#srch_grp').show();
 	};
 	let cust_navi = ()=>{
 		return [
@@ -182,6 +183,7 @@ cust = (()=>{
 			alert('검색 상품 리스트');
 			$('<div class="grid-item" id="content_1">'
 					+'<h2>상품 리스트</h2>'
+					+'<button id="grid_btn">그리드로 보기</button>'
 					+'</div>'
 				    +'<div class="grid-item" id="content_2">'
 					+'<table class="table table-bordered" id="tab"><tr>'
@@ -222,7 +224,7 @@ cust = (()=>{
 					.click(function(){
 						alert($(this).text());
 						let val = {s:x.s, p:$(this).text()};
-						srch($(this).text());
+						srch(val);
 					});
 				}else{
 					$('<li><a class="page">'+i+'</a></li>')
@@ -239,13 +241,91 @@ cust = (()=>{
 				.appendTo('.pagination')
 				.click(()=>{
 					let val = {s:x.s, p:d.pxy.nextBlock};
-					srch(d.pxy.nextBlock);
+					srch(val);
 				});
 			}
-		
+			$('#grid_btn').click(e=>{
+				alert('그리드 보기 클릭');
+				grid(x);
+			});
+		});
+	};
+	let grid = x=>{
+		$.getJSON($.ctx()+'/phones/search/'+x.s+'/grid/'+x.p, d=>{
+			
+			$('#right_content').empty();
+			$('<div id="grid_content1">'
+					+'<h2>상품 그리드</h2>'
+					+'<button id="list_btn">리스트 보기</button>'
+					+'<div style="height: 50px"></div>'
+			+'</div>').appendTo('#right_content');
+			
+			$(compo.grid()).appendTo('#right_content');
+			$('#grid_row').empty();
+			let arr = [
+				{img:'https://images.samsung.com/is/image/samsung/sec-galaxy-s9-plus-g965-sm-g965nzrakoo-GalaxyS9--99975833?$PD_GALLERY_L_JPG$'},
+				{img:'https://img.hankyung.com/photo/201902/01.18936777.1.jpg'},
+				{img:'http://static2.e-himart.co.kr/contents/goods/00/01/76/69/53/0001766953__SM-G970N128YL__M_450_450.jpg'},
+				{img:'https://img.hankyung.com/photo/201810/01.17977202.1.jpg'}
+			];
+			$.each(d.srch_list,(i,j)=>{
+				$('<div class="col-md-4">'
+						+'<div class="thumbnail">'
+						+'<a href="'+j.img+'" target="_blank">'
+							+'<img src="'+j.img+'" style="width:100%">'
+							+'<div class="caption">'
+								+'<p>Lorem ipsum donec id elit non mi porta gravida at eget metus.</p>'
+							+'</div>'
+						+'</a>'
+					+'</div>'
+				+'</div>').appendTo('#grid_row');
+			});
+			
+			$('<div class="pagination"></div>').appendTo('#grid_content2');
+			
+			if(d.pxy.existPrev){
+				$('<li><a>&laquo;</a></li>')
+				.appendTo('.pagination')
+				.click(()=>{
+					let val = {s:x.s, p:d.pxy.prevBlock};
+					grid(val);
+				});
+			}
+			let i=0;
+			for(i=d.pxy.startPage;i<=d.pxy.endPage;i++){
+				if(d.pxy.pageNum==i){
+					$('<li><a class="page active">'+i+'</a></li>')
+					.appendTo('.pagination')
+					.click(function(){
+						alert($(this).text());
+						let val = {s:x.s, p:$(this).text()};
+						grid(val);					
+					});
+				}else{
+					$('<li><a class="page">'+i+'</a></li>')
+					.appendTo('.pagination')
+					.click(function(){
+						alert($(this).text());
+						let val = {s:x.s, p:$(this).text()};
+						grid(val);
+					});
+				}
+			}
+			if(d.pxy.existNext){
+				$('<li><a>&raquo;</a></li>')
+				.appendTo('.pagination')
+				.click(()=>{
+					let val = {s:x.s, p:d.pxy.nextBlock};
+					grid(val);
+				});
+			}
+			$('#list_btn').click(e=>{
+				srch(x);
+			});
 		});
 	};
 	return{init:init,
 		list:list, 
-		srch:srch};
+		srch:srch,
+		grid:grid};
 })();

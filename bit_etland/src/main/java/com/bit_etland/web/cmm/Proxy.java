@@ -1,7 +1,16 @@
 package com.bit_etland.web.cmm;
 
+import java.io.File;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.FileItemFactory;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +20,7 @@ public class Proxy {
 	private int rowCount, pageNum, pageSize, blockSize, startRow, endRow, startPage, endPage, prevBlock, nextBlock;
 	private boolean existPrev, existNext;
 	private String search;
-
+	@Autowired Image img;
 	public void carryOut(Map<?,?> paramMap) {
 		//page_num, page_size, block_size
 		search = (String) paramMap.get("srch");
@@ -66,5 +75,38 @@ public class Proxy {
 
 		System.out.println("prevBlock@@@@" + prevBlock + "  nextBlock@@@@" + nextBlock);
 
+	}
+	public void fileUpload(String customerId) {
+		System.out.println("이미지 프록시 1번");
+	
+		FileItemFactory factory = new DiskFileItemFactory();
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		upload.setFileSizeMax(1024 * 1024 * 40); //40MB
+		upload.setSizeMax(1024 * 1024 * 50); //50MB
+		List<FileItem> items = null;
+		try {
+			File file = null;
+//			items = upload.parseRequest(new ServletRequestContext(request));
+			Iterator<FileItem> it = items.iterator();
+			while(it.hasNext()) {
+				FileItem item = it.next();
+				if(!item.isFormField()) {
+					String fileName = item.getName();
+					file = new File(""+fileName);
+					item.write(file);
+					img = new Image();
+					
+					img.setImgName(fileName.substring(0,fileName.indexOf(".")));
+					img.setImgExtention(fileName.substring(fileName.indexOf(".")+1));
+				
+					System.out.println("파일명 : "+img.getImgName()+"******확장자 : "+img.getImgExtention());					
+					
+//					System.out.println("이미지 : "+request.getParameter("customer_id"));
+					img.setOwner(customerId);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
