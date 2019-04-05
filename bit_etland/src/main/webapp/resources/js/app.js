@@ -8,6 +8,7 @@ app = (() => {
 		$.when(
 				$.getScript($.js()+'/component/compo.js'),
 				$.getScript($.js()+'/product/prod.js'),
+				$.getScript($.js()+'/product/fileupload.js'),
 				$.getScript($.js()+'/customer/cust.js'),
 				$.getScript($.js()+'/common/auth.js'),
 				$.getScript($.js()+'/common/util.js'),
